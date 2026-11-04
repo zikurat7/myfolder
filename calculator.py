@@ -14,7 +14,7 @@ app = FastAPI(title="Calculator")
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
-class Calculation(BaseModel):
+class Calculationz(BaseModel):
     a: float
     b: float
     operation: Literal["add", "subtract", "multiply", "divide"]
@@ -23,10 +23,10 @@ class Calculation(BaseModel):
 @app.get("/")
 def calculator() -> FileResponse:
     return FileResponse(STATIC_DIR / "index.html")
-
+    
 
 @app.post("/api/calc")
-def calculate(calculation: Calculation) -> dict[str, float]:
+def calculate(calculation: Calculationz) -> dict[str, float]:
     if not math.isfinite(calculation.a) or not math.isfinite(calculation.b):
         raise HTTPException(status_code=400, detail="Inputs must be finite numbers.")
 
